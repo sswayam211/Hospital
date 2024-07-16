@@ -1,0 +1,644 @@
+<?php
+
+$showresult = false;
+
+if ($_SERVER["REQUEST_METHOD"] == "POST") {
+
+    // establishing connection
+    $server = "localhost";
+    $username = "root";
+    $password = "";
+    $database = "hospital";
+
+    // connnecting to database
+    $con = mysqli_connect($server, $username, $password, $database);
+
+    // checking connection established 
+    if (!$con) {
+        die("sorry connection failed : " . mysqli_connect_error());
+    } else {
+        // echo "connection succesfull<br>";
+    }
+
+    $doctorName = $_POST["doctorName"];
+    $department = $_POST["department"];
+
+    $sql = "SELECT * FROM `doctor2` WHERE Name='$doctorName'";
+
+    $result = mysqli_query($con, $sql);
+
+    //  finding the no. of rows returned 
+    $row = mysqli_num_rows($result);
+    // echo "total no. of rows in table : " . "$row" . "<br>";
+
+    // displying data 
+    if ($row == 1) {
+        $showresult = true;
+        while ($row = mysqli_fetch_assoc($result)) {
+            $serial_no = $row["S_no"];
+            $name = $row["Name"];
+            $department = $row["Department"];
+            $degree = $row["Degree"];
+            $photo = $row["Photo"];
+        }
+    }
+
+    // header('location: index.php');
+
+    $con->close();
+}
+
+?>
+
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Doctor</title>
+
+    <style>
+        body {
+            margin: 0px;
+            padding: 0px;
+            background-color: rgb(204, 177, 245);
+            color: white;
+            cursor: context-menu;
+            z-index: 0;
+            height: 100%;
+            width: 100%;
+            overflow-x: hidden;
+        }
+
+        body::-webkit-scrollbar {
+            width: 10px;
+            height: 0px;
+        }
+
+        body::-webkit-scrollbar-track {
+            background-color: transparent;
+        }
+
+        body::-webkit-scrollbar-thumb {
+            background: white;
+            border-radius: 10px;
+            cursor: pointer;
+        }
+
+        * {
+            margin: 0px;
+            padding: 0px;
+            list-style: none;
+            text-decoration: none;
+            box-sizing: border-box;
+            line-height: 1.5;
+            font-family: sans-serif
+        }
+
+        a {
+            color: white;
+        }
+
+        /* header section start  */
+
+        .header {
+            display: block;
+            position: fixed;
+            top: 0px;
+            width: 100%;
+            color: white;
+            padding: 20px 20px;
+            background-color: rgb(183, 138, 252);
+            z-index: 1;
+        }
+
+        @media only screen and (max-width :600px) {
+            .header {
+                padding: 13px 20px;
+            }
+        }
+
+        .menubar {
+            display: flex;
+            flex-direction: row;
+        }
+
+        .menubar .num {
+            display: block;
+            position: absolute;
+            right: 100px;
+            top: 29px;
+            line-height: 1;
+            z-index: 1;
+            cursor: pointer;
+            /* border: 2px solid white; */
+            height: fit-content;
+            width: fit-content;
+            font-size: 22px;
+        }
+
+        @media only screen and (max-width :768px) {
+            .menubar .num {
+                display: none;
+            }
+        }
+
+        /* bad ma hatana hai  */
+        .menubar .shownavbar {
+            position: absolute;
+            right: 20px;
+            top: 22px;
+            line-height: 1;
+            z-index: 2;
+            cursor: pointer;
+            /* border: 2px solid white;
+            height: 50px;
+            width: 50px; */
+        }
+
+        @media only screen and (max-width :600px) {
+            .menubar .shownavbar {
+                top: 15px;
+            }
+        }
+
+        @keyframes transform {
+            0% {
+                transform: rotate(0deg);
+            }
+
+            50% {
+                border-radius: 50%;
+            }
+
+            100% {
+                transform: rotate(360deg);
+                border-radius: none;
+            }
+        }
+
+        .lines {
+            background-color: white;
+            height: 7px;
+            width: 40px;
+            margin: 6px 0px;
+            border-radius: 3px;
+        }
+
+        .menubar .navbar {
+            display: none;
+            background-color: rgb(208, 195, 195);
+            position: absolute;
+            right: -300px;
+            top: 0px;
+            z-index: 1;
+            padding: 10px 0px;
+            width: 300px;
+            /* animation: navshow 4s linear; */
+        }
+
+        @keyframes navshow {
+            0% {
+                right: -300px;
+            }
+
+            100% {
+                right: 0px;
+            }
+        }
+
+        @media only screen and (max-width :840px) {
+            .menubar .navbar {
+                width: 220px;
+            }
+        }
+
+        /* @media only screen and (max-width :550px) {
+            .menubar .navbar {
+                display: none;
+                justify-content: center;
+                align-items: center;
+                width: 100%;
+                background-color: rgba(208, 195, 195, 0.737);
+                overflow: scroll;
+                height: 100vh;
+                border-radius: 40%;
+                padding: 100px;
+                animation: all 0.5s linear;
+            }
+
+            .menubar .navbar::-webkit-scrollbar {
+                width: 100%;
+            }
+
+            .menubar .navbar ::before {
+                content: none;
+            }
+
+            @keyframes all {
+                0% {
+                    height: 21px;
+                    width: 21px;
+                    top: 50vh;
+                    right: 46%;
+                    padding: 0px;
+                }
+
+                50% {
+                    height: 50vh;
+                    width: 50%;
+                    top: 25vh;
+                    right: 24%;
+                    padding: 50px;
+                }
+
+                100% {
+                    height: 100vh;
+                    width: 100%;
+                    top: 0vh;
+                    right: 0%;
+                    padding: 100px;
+                }
+            }
+        } */
+
+        .menubar .navbar a {
+            color: black;
+        }
+
+        .menubar .navbar li {
+            padding: 10px 10px;
+        }
+
+        @media only screen and (max-width :550px) {
+            .menubar .navbar li {
+                padding: 5px 10px;
+            }
+        }
+
+        .menubar .navbar li:nth-child(10) {
+            font-size: 17px;
+            font-weight: bold;
+        }
+
+        .menubar .navbar li:hover {
+            color: rgb(113, 112, 112);
+            background-color: rgb(205, 188, 188);
+        }
+
+        /* header section :ends  */
+
+        .docDetails .container {
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            height: 400px;
+            width: 650px;
+            margin: 0px auto;
+            margin-bottom: 10px;
+            border: 2px solid white;
+            border-radius: 15px;
+        }
+
+        @media only screen and (max-width :650px) {
+            .docDetails .container {
+                width: 90%;
+                height: fit-content;
+                display: block;
+                text-align: center;
+                padding: 20px;
+            }
+        }
+
+        .docDetails .container img {
+            height: 300px;
+            margin: 0px 20px;
+        }
+
+        @media only screen and (max-width :424px) {
+            .docDetails .container img {
+                height: 210px;
+                margin: 0px 20px;
+            }
+        }
+
+        .docDetails .appointment {
+            width: fit-content;
+            margin: auto;
+        }
+
+        .docDetails .appointment button {
+            background: transparent;
+            padding: 5px;
+            color: white;
+            font-weight: 500;
+            font-size: 15px;
+            border: 2px solid white;
+            margin-bottom: 50px;
+        }
+
+        .docDetails .appointment button:hover {
+            background-color: rgb(183, 138, 252);
+            cursor: pointer;
+        }
+
+        /* footer section start  */
+
+        .info {
+            padding: 10px 0px 40px 0px;
+            background-color: rgb(183, 138, 252);
+        }
+
+        .info .container {
+            padding: 10px 0px 10px 0px;
+            width: 90%;
+            margin: auto;
+        }
+
+        .info .container .details {
+            width: 100%;
+            display: flex;
+            justify-content: space-evenly;
+            align-items: center;
+            flex-wrap: wrap;
+        }
+
+        .info .container .boxes {
+            margin: 20px 0px;
+            /* padding: 30px; */
+            width: 35%;
+            height: 260px;
+            overflow: scroll;
+            /* border: 2px solid red; */
+            /* scroll-behavior: auto; */
+        }
+
+        @media only screen and (max-width :705px) {
+            .info .container .boxes {
+                width: 60%;
+            }
+        }
+
+        @media only screen and (max-width :550px) {
+            .info .container .boxes {
+                width: 90%;
+            }
+        }
+
+        .info .container .boxes::-webkit-scrollbar {
+            width: 5px;
+        }
+
+        .info .container .boxes h4 {
+            font-size: 20px;
+        }
+
+        .info .container .boxes a {
+            color: white;
+        }
+
+        .info .container .boxes li {
+            padding: 5px 0px;
+        }
+
+        /* footer section ends  */
+    </style>
+
+</head>
+
+<body>
+    <!-- header section start  -->
+    <header>
+        <div class="header">
+            <div class="menubar">
+                <div class="logo">
+                    <h1>HOSPITAL</h1>
+                </div>
+                <div class="num">
+                    <p>HELPLINE : +91-9656856964</p>
+                </div>
+                <div class="shownavbar">
+                    <p class="lines"></p>
+                    <p class="lines"></p>
+                    <p class="lines"></p>
+                </div>
+                <nav class="navbar">
+                    <ul>
+                        <a href="index.php">
+                            <li>HOME</li>
+                        </a>
+                        <a href="index.php#aboutUs">
+                            <li>ABOUT US</li>
+                        </a>
+                        <a href="index.php#services">
+                            <li>SERVICES</li>
+                        </a>
+                        <a href="index.php#findDoctor">
+                            <li>FIND A DOCTOR</li>
+                        </a>
+                        <a href="index.php#department">
+                            <li>DEPARTMENT</li>
+                        </a>
+                        <a href="appointment.php">
+                            <li>BOOK AN APPOINTMENT</li>
+                        </a>
+                        <a href="index.php#branches">
+                            <li>BRANCHES</li>
+                        </a>
+                        <a href="">
+                            <li>CAREER</li>
+                        </a>
+                        <a href="">
+                            <li>MEDIA</li>
+                        </a>
+                        <a href="login.php">
+                            <li>LOGIN</li>
+                        </a>
+                        <li>HELPLINE:+91-9656856964</li>
+                    </ul>
+                </nav>
+            </div>
+        </div>
+        <br><br><br><br><br>
+    </header>
+    <!-- header section ends  -->
+
+    <!-- detail section start  -->
+    <main>
+        <div class="docDetails">
+            <?php
+            if ($showresult) {
+                echo "<div class='container'>
+                <a href='doctorDetails.php'><div class='img'><img src='upload/$photo' alt=''></div></a>
+                <a href='doctorDetails.php'>
+                    <div class='details'>
+                        <h1>$name</h1>
+                        <p style='font-weight: bold; font-size : 20px;'>$degree</p>
+                        <p>$department</p>
+                    </div>
+                </a>
+            </div>
+            <div class='appointment'><a href='appointment.php'><button>Book Appointment</button></a></div>";
+            } else if (!$showresult) {
+                // echo "Sorry, You have entered wrong Doctor Name. Please correct it.";
+                echo "<div class='container'>
+                    <div class='details'>
+                    Sorry, You have entered wrong Doctor Name. Please correct it.
+                    </div>
+            </div>";
+            }
+            ?>
+
+            <div class="container">
+                <a href="doctorDetails.php">
+                    <div class="img">
+                        <img src="images/other-doctor.png" alt="">
+                    </div>
+                </a>
+                <a href="doctorDetails.php">
+                    <div class="details">
+                        <h1>Doctor Name</h1>
+                        <p style="font-weight: bold; font-size : 20px;">Degree</p>
+                        <p>Department of _____________</p>
+                    </div>
+                </a>
+            </div>
+            <div class="appointment">
+                <a href="appointment.php"><button>Book Appointment</button></a>
+            </div>
+
+        </div>
+
+    </main>
+
+    <!-- details section ends  -->
+
+
+    <footer>
+        <!-- info section starts  -->
+
+        <div class="info">
+            <div class="container">
+                <div class="details">
+
+                    <div class="boxes">
+                        <h4>Patient Guide</h4>
+                        <div class="navbar">
+                            <ul>
+                                <a href="#findDoctor">
+                                    <li>Find A Doctor</li>
+                                </a>
+                                <a href="">
+                                    <li>Book An Appointment</li>
+                                </a>
+                            </ul>
+                        </div>
+                    </div>
+
+                    <div class="boxes">
+                        <h4>Diseases we Treat</h4>
+                        <ul>
+                            <li>Chest Pain</li>
+                            <li>Heart Attack</li>
+                            <li>Thyroid Problem</li>
+                            <li>Varicos Vains</li>
+                            <li>Normal Diseases</li>
+                            <a href="">
+                                <li>View All</li>
+                            </a>
+                        </ul>
+                    </div>
+
+                    <div class="boxes">
+                        <h4>Specialities</h4>
+                        <ul>
+                            <li>General Medicines</li>
+                            <li>ENT</li>
+                            <li>Paediatrics and Neonatology</li>
+                            <li>Dental</li>
+                            <li>Cardiology</li>
+                            <li>Gastrology</li>
+                            <li>Opthalmonology</li>
+                        </ul>
+                    </div>
+
+                    <div class="boxes">
+                        <h4>Contacts</h4>
+                        <ul>
+                            <li>Emercency : 112</li>
+                            <li>Ambulance : 102</li>
+                            <li>Hospital on wheels : 104</li>
+                            <li>TollFree No : 18001211210011</li>
+                            <li>TollFree No : +91 9656856964</li>
+                        </ul>
+                    </div>
+                </div>
+            </div>
+        </div>
+
+        <!-- info section ends  -->
+    </footer>
+
+    <script>
+        console.log("hey baby");
+        let body = document.querySelector("body");
+
+        // to show navbar when clicked on show button
+        let show = document.querySelector(".shownavbar");
+        let display = 0;
+
+        let navbar = document.querySelector(".navbar");
+
+        show.onclick = (e) => {
+            console.log(e.target.nodeName);
+            if (display === 0) {
+                show.style.animation = "transform 0.8s linear";
+                setTimeout(() => {
+                    console.log("navbar visible");
+                    navbar.style.display = "flex";
+                    show.innerHTML = 'X';
+                    show.style.padding = '8px 10px';
+                    show.style.border = '2px solid white';
+                    show.style.fontSize = '20px';
+                    navbar.style.animation = "navshow 0.4s linear";
+                    navbar.style.right = "0px";
+                    display = 1;
+                }, 400);
+            } else if (display === 1) {
+                console.log("navbar hidden");
+                navbar.style.display = "none";
+                show.innerHTML = '<p class="lines"></p><p class="lines"></p><p class="lines"></p>';
+                show.style.padding = '0px';
+                show.style.border = 'none';
+                show.style.fontSize = '20px';
+                show.style.animation = "none";
+                navbar.style.right = "-300px";
+                display = 0;
+            }
+        }
+
+
+        // to automaticlly hide navbar when clicked somewhere else on the page
+        if (navbar.style.display != "none") {
+            window.addEventListener('click', (e) => {
+                console.log(e.target.nodeName);
+                if (e.target.nodeName === "P") {
+
+                } else if (e.target.nodeName != "P") {
+                    console.log("windows is clicked");
+                    navbar.style.display = "none";
+                    show.innerHTML = '<p class="lines"></p><p class="lines"></p><p class="lines"></p>';
+                    show.style.padding = '0px';
+                    show.style.border = 'none';
+                    show.style.fontSize = '20px';
+                    navbar.style.right = "-300px";
+                    display = 0;
+                }
+            })
+        }
+    </script>
+
+</body>
+
+</html>

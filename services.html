@@ -1,0 +1,1123 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Services</title>
+    <!-- <link rel="stylesheet" href="service.css"> -->
+    <style>
+        body {
+            margin: 0px;
+            padding: 0px;
+            background-color: rgb(204, 177, 245);
+            color: white;
+            cursor: context-menu;
+            z-index: 0;
+            width: 100%;
+            height: 100%;
+            overflow-x: hidden;
+            scroll-behavior: smooth;
+        }
+
+        body::-webkit-scrollbar {
+            width: 10px;
+            height: 0px;
+        }
+
+        body::-webkit-scrollbar-track {
+            background-color: transparent;
+        }
+
+        body::-webkit-scrollbar-thumb {
+            background: white;
+            border-radius: 10px;
+            cursor: pointer;
+        }
+
+        * {
+            margin: 0px;
+            padding: 0px;
+            list-style: none;
+            text-decoration: none;
+            box-sizing: border-box;
+            line-height: 1.5;
+            font-family: sans-serif
+        }
+
+        .heading {
+            text-align: center;
+            text-decoration: underline;
+            margin: 10px 0px 0px 0px;
+            padding: 10px 0px 0px 0px;
+        }
+
+        main {
+            width: 90%;
+            margin: auto;
+            /* background-color: black; */
+        }
+
+        @media only screen and (max-width :768px) {
+            main {
+                width: 95%;
+            }
+        }
+
+        a{
+            color: black;
+        }
+
+        /* header section :starts  */
+
+        .header {
+            display: block;
+            position: fixed;
+            /* position: sticky; */
+            top: 0;
+            background-color: rgb(183, 138, 252);
+            width: 100%;
+            color: white;
+            padding: 20px 20px;
+        }
+
+        @media only screen and (max-width :600px) {
+            .header {
+                padding: 13px 20px;
+            }
+        }
+
+        .menubar {
+            display: flex;
+            flex-direction: row;
+        }
+
+        .menubar .num {
+            display: block;
+            position: absolute;
+            right: 100px;
+            top: 29px;
+            line-height: 1;
+            z-index: 1;
+            cursor: pointer;
+            /* border: 2px solid white; */
+            height: fit-content;
+            width: fit-content;
+            font-size: 22px;
+        }
+
+        @media only screen and (max-width :768px) {
+            .menubar .num {
+                display: none;
+            }
+        }
+
+        /* bad ma hatana hai  */
+        .menubar .shownavbar {
+            position: absolute;
+            right: 20px;
+            top: 22px;
+            line-height: 1;
+            z-index: 2;
+            cursor: pointer;
+            /* border: 2px solid white; */
+            height: fit-content;
+            width: fit-content;
+        }
+
+        @media only screen and (max-width :600px) {
+            .menubar .shownavbar {
+                top: 15px;
+            }
+        }
+
+        @keyframes transform {
+            0% {
+                transform: rotate(0deg);
+            }
+
+            50% {
+                border-radius: 50%;
+            }
+
+            100% {
+                transform: rotate(360deg);
+                border-radius: none;
+            }
+        }
+
+        .lines {
+            background-color: white;
+            height: 7px;
+            width: 40px;
+            margin: 6px 0px;
+            border-radius: 3px;
+            /* z-index: 1; */
+        }
+
+        .menubar .navbar {
+            display: none;
+            background-color: rgb(208, 195, 195);
+            position: absolute;
+            right: -300px;
+            top: 0px;
+            z-index: 1;
+            padding: 10px 0px;
+            width: 300px;
+            /* animation: navshow 4s linear; */
+        }
+
+        @keyframes navshow {
+            0% {
+                right: -300px;
+            }
+
+            100% {
+                right: 0px;
+            }
+        }
+
+        @media only screen and (max-height :500px) {
+            .menubar .navbar {
+                height: 400px;
+            }
+        }
+
+        @media only screen and (max-height :400px) {
+            .menubar .navbar {
+                height: 370px;
+            }
+        }
+
+        @media only screen and (max-width :840px) {
+            .menubar .navbar {
+                width: 220px;
+            }
+        }
+
+        .active {
+            text-decoration: underline;
+            color: rgb(113, 112, 112);
+        }
+
+        /* @media only screen and (max-width :550px) {
+            .menubar .navbar {
+                display: none;
+                justify-content: center;
+                align-items: center;
+                width: 100%;
+                background-color: rgba(208, 195, 195, 0.737);
+                overflow: scroll;
+                height: 100vh;
+                border-radius: 50%;
+                animation: all 0.5s linear;
+            }
+
+            .menubar .navbar::-webkit-scrollbar {
+                width: 100%;
+            }
+
+            .menubar .navbar ::before {
+                content: none;
+            }
+
+            @keyframes all {
+                0% {
+                    height: 21px;
+                    width: 21px;
+                    top: 50vh;
+                    right: 46%;
+                    padding: 0px;
+                }
+
+                50% {
+                    height: 50vh;
+                    width: 50%;
+                    top: 25vh;
+                    right: 24%;
+                    padding: 50px;
+                }
+
+                100% {
+                    height: 100vh;
+                    width: 100%;
+                    top: 0vh;
+                    right: 0%;
+                    padding: 100px;
+                }
+            }
+        } */
+
+        .menubar .navbar ul {
+            display: block;
+            word-wrap: break-word;
+            overflow: scroll;
+            text-overflow: ellipsis;
+        }
+
+        .menubar .navbar ul::-webkit-scrollbar {
+            width: 5px;
+            height: 0px;
+        }
+
+        .menubar .navbar ul::-webkit-scrollbar-thumb {
+            background: white;
+            border-radius: 10px;
+            cursor: pointer;
+        }
+
+        .menubar .navbar li {
+            padding: 10px 10px;
+        }
+
+        @media only screen and (max-width :550px) {
+            .menubar .navbar li {
+                padding: 5px 10px;
+            }
+        }
+
+        .menubar .navbar li:nth-child(10) {
+            font-size: 17px;
+            font-weight: bold;
+        }
+
+        .menubar .navbar li:hover {
+            color: rgb(113, 112, 112);
+            background-color: rgb(205, 188, 188);
+        }
+
+        /* header section :ends  */
+
+
+        /* service section  */
+        .services {
+            /* padding: 10px 0px 10px 0px; */
+            /* background-color: rgb(183, 138, 252); */
+            color: white;
+            /* text-align: center; */
+        }
+
+        .serviceContainer {
+            padding: 10px 0px 0px 0px;
+            width: 90%;
+            margin: auto;
+        }
+
+        .services .heading span {
+            color: rgb(243, 231, 7);
+        }
+
+        .services .headingPara {
+            text-align: center;
+            font-size: large;
+        }
+
+        .services .boxes {
+            display: flex;
+        }
+
+        @media only screen and (max-width :600px) {
+            .services .boxes {
+                display: block;
+            }
+        }
+
+        .services .boxes .img {
+            width: 50%;
+            height: 400px;
+            background-position: center;
+            background-size: contain;
+            background-repeat: no-repeat;
+        }
+
+        .services .boxes .content {
+            width: 50%;
+            height: 400px;
+            /* border: 2px solid white; */
+            text-align: right;
+
+        }
+
+        @media only screen and (max-width :1024px) {
+
+            .services .boxes .img,
+            .services .boxes .content {
+                height: 320px;
+            }
+        }
+
+        @media only screen and (max-width :768px) {
+
+            .services .boxes .img,
+            .services .boxes .content {
+                height: 232px;
+            }
+        }
+
+        @media only screen and (max-width :768px) {
+
+            .services .boxes .img,
+            .services .boxes .content {
+                width: 100%;
+            }
+        }
+
+        .services .boxes .content:nth-child(even) {
+            text-align: left;
+        }
+
+        .services h2 {
+            padding: 0px 10px;
+            text-align: center;
+            width: fit-content;
+            margin: 20px auto;
+            margin-top: 10px;
+            /* border-bottom: 3px solid white; */
+            /* animation: border 1s infinite; */
+            /* transform: ; */
+        }
+
+        .services .div2 {
+            border: 2px solid white;
+            position: relative;
+            bottom: 19px;
+            margin: auto;
+            width: 200px;
+            animation: border 3s infinite ease-in-out;
+
+        }
+
+        @keyframes border {
+            0% {
+                width: 0%;
+            }
+
+            50% {
+                width: 200px;
+            }
+
+            100% {
+                width: 0%;
+            }
+        }
+
+        .services .div {
+            height: 10px;
+            width: 10px;
+            background: #ffffff;
+            border-radius: 50%;
+            position: relative;
+            border-top: 3px solid white;
+            margin: auto;
+            bottom: 26px;
+        }
+
+        .services .boxes .content p {
+            display: block;
+            word-wrap: break-word;
+            overflow: scroll;
+            text-overflow: ellipsis;
+            height: 100%;
+            padding: 0px 10px 0px 0px;
+            margin: 0px 5px;
+        }
+
+        .services .boxes .content p::-webkit-scrollbar {
+            width: 2px;
+            height: 0px;
+        }
+
+        .services .boxes .content p::-webkit-scrollbar-thumb {
+            background: white;
+            border-radius: 50px;
+            cursor: pointer;
+        }
+
+        /* service section  */
+
+        /* information  section start  */
+
+        .info {
+            padding: 10px 0px 40px 0px;
+            background-color: rgb(183, 138, 252);
+        }
+
+        .info .container {
+            padding: 10px 0px 10px 0px;
+            width: 90%;
+            margin: auto;
+        }
+
+        .info .container .details {
+            width: 100%;
+            display: flex;
+            justify-content: space-evenly;
+            align-items: center;
+            flex-wrap: wrap;
+        }
+
+        .info .container .boxes {
+            margin: 20px 0px;
+            /* padding: 30px; */
+            width: 35%;
+            height: 260px;
+            overflow: scroll;
+            /* border: 2px solid red; */
+            /* scroll-behavior: auto; */
+        }
+
+        @media only screen and (max-width :705px) {
+            .info .container .boxes {
+                width: 60%;
+            }
+        }
+
+        @media only screen and (max-width :550px) {
+            .info .container .boxes {
+                width: 90%;
+            }
+        }
+
+        .info .container .boxes::-webkit-scrollbar {
+            width: 5px;
+        }
+
+        .info .container .boxes h4 {
+            font-size: 20px;
+        }
+
+        .info .container .boxes a {
+            color: white;
+        }
+
+        .info .container .boxes li {
+            padding: 5px 0px;
+        }
+
+        .info .container .feedback {
+            width: 60%;
+        }
+
+        @media only screen and (max-width :550px) {
+            .info .container .feedback {
+                width: 90%;
+            }
+        }
+
+        .info .container .feedback form {
+            display: flex;
+            flex-direction: column;
+
+        }
+
+        .info .container .feedback form textarea {
+            height: 130px;
+            border: none;
+            outline: none;
+        }
+
+        .info .container .feedback form button {
+            background: transparent;
+            padding: 8px 25px;
+            margin: 10px 0px;
+            color: white;
+            font-weight: 500;
+            font-size: 15px;
+            background-color: rgb(204, 177, 245);
+            border: 2px solid rgb(157, 92, 255);
+            width: 120px;
+        }
+
+        .info .container .feedback form button:hover {
+            background-color: rgb(183, 138, 252);
+            border: 2px solid rgb(204, 177, 245);
+            cursor: pointer;
+        }
+
+        /* information section ends  */
+
+
+
+
+        /* scroll animation  */
+
+        div {
+            opacity: 0;
+        }
+
+        .show {
+            animation: show 0.5s forwards;
+            z-index: 1;
+            opacity: 1;
+        }
+
+        @keyframes show {
+            0% {
+                opacity: 0;
+            }
+
+            50% {
+                opacity: 0.5;
+            }
+
+            100% {
+                opacity: 1;
+            }
+        }
+    </style>
+</head>
+
+<body>
+    <!-- header section start  -->
+    <header>
+        <div class="header">
+            <div class="menubar">
+                <div class="logo">
+                    <h1>HOSPITAL</h1>
+                </div>
+                <div class="num">
+                    <p>HELPLINE : +91-9656856964</p>
+                </div>
+                <div class="shownavbar">
+                    <p class="lines"></p>
+                    <p class="lines"></p>
+                    <p class="lines"></p>
+                </div>
+                <nav class="navbar">
+                    <ul>
+                        <a href="index.php">
+                            <li>HOME</li>
+                        </a>
+                        <a href="index.php#aboutUs">
+                            <li>ABOUT US</li>
+                        </a>
+                        <a href="index.php#services" class="active">
+                            <li>SERVICES</li>
+                        </a>
+                        <a href="index.php#findDoctor">
+                            <li>FIND A DOCTOR</li>
+                        </a>
+                        <a href="index.php#department">
+                            <li>DEPARTMENT</li>
+                        </a>
+                        <a href="appointment.php">
+                            <li>BOOK AN APPOINTMENT</li>
+                        </a>
+                        <a href="index.php#branches">
+                            <li>BRANCHES</li>
+                        </a>
+                        <a href="">
+                            <li>CAREER</li>
+                        </a>
+                        <a href="">
+                            <li>MEDIA</li>
+                        </a>
+                        <a href="login.php">
+                            <li>LOGIN</li>
+                        </a>
+                        <li>HELPLINE : +91-9656856964</li>
+                    </ul>
+                </nav>
+            </div>
+        </div>
+        <br><br><br>
+    </header>
+    <!-- header section ends  -->
+
+
+    <main>
+        <section class="services" id="services">
+            <div class="serviceContainer">
+                <div class="heading">
+                    <h2 style="border-bottom: none;margin: 0px auto;">24x7 <span style="color: rgb(243, 231, 7)"> SERVICES</span></h2>
+                </div>
+                <p class="headingPara">We cover a big varity of medical services</p>
+            </div>
+        </section>
+
+        <section id="emergency">
+            <br><br><br>
+            <div class="services">
+                <h2>Emergency</h2>
+                <div class="div2"></div>
+                <div class="div"></div>
+                <div class="boxes">
+                    <div class="img" style="background-image: url('images/Service-emergency.jpg');">
+                        <!-- <img src="images/Service-emergency.jpg" alt=""> -->
+                    </div>
+                    <div class="content">
+                        <p>Lorem ipsum dolor sit amet consectetur adipisicing elit. Minima, doloribus fugiat eligendi
+                            adipisci qui illum voluptatem, molestiae dolore consequuntur quia corporis. Expedita
+                            voluptate
+                            soluta error alias provident sapiente, exercitationem recusandae?Lorem ipsum dolor sit amet
+                            consectetur adipisicing elit. Possimus hic, error similique eveniet, aliquam facere
+                            doloribus tempore quisquam adipisci ad neque quidem blanditiis ipsam ut, quis inventore
+                            itaque cupiditate eaque. Eveniet rem beatae esse ipsam alias, voluptates fugit explicabo
+                            doloribus incidunt velit suscipit eum iusto inventore. Maxime facilis blanditiis dicta
+                            provident hic dolore eligendi labore id eum? Esse, minima a? In fuga quis veniam nesciunt,
+                            soluta vel tenetur dolorem suscipit consequuntur! Dolorem, sapiente nesciunt reprehenderit
+                            provident eveniet vel vero minima excepturi ex modi totam aspernatur possimus ipsa soluta
+                            nostrum, aut quisquam laudantium maxime. Alias similique distinctio facilis exercitationem,
+                            id sapiente numquam voluptatum possimus nihil. Repudiandae dicta eligendi aperiam animi ad
+                            quasi? Quo eveniet aliquid eos consequuntur! Libero illum sint quaerat sapiente,
+                            exercitationem et assumenda odit voluptate rem voluptatibus culpa eum ea a quod, consectetur
+                            quos officia sequi eligendi, nemo architecto quia vitae delectus reprehenderit? Hic
+                            veritatis expedita aut dolores error similique distinctio aliquam fugit temporibus. Nisi
+                            ipsa expedita nobis illum culpa soluta eos voluptatibus, alias ullam veniam ut eaque
+                            consequatur quis quas unde velit quisquam, nulla molestiae quo quos. Praesentium quas at
+                            nobis quia impedit ducimus exercitationem maiores, nemo beatae repudiandae ad libero tenetur
+                            reiciendis ipsa alias! Nesciunt suscipit nihil cupiditate a accusantium mollitia error
+                            cumque eveniet neque, illum doloribus libero, tempore incidunt officiis ipsam sint fugit
+                            corporis laboriosam exercitationem veritatis voluptate optio inventore consequuntur fuga!
+                            Quia, veniam eligendi! Nulla delectus odit inventore ullam quas dignissimos vitae enim
+                            quisquam sed minus praesentium quis magnam, reiciendis, velit fugit temporibus dolor neque
+                            asperiores! Nostrum libero exercitationem id a architecto laboriosam magni doloribus minima,
+                            tempore corrupti! Possimus minima aliquam esse ratione fuga rem praesentium eius, dicta
+                            maiores error, qui temporibus corrupti ab modi eos sit voluptatem tempora doloribus tenetur
+                            atque nihil ut. Minima, illum? Adipisci consequatur tempore architecto voluptatibus illum
+                            provident quibusdam temporibus, ad, earum, esse eum in ipsam est optio doloribus natus.
+                            Saepe reiciendis magni nostrum et explicabo reprehenderit quia facere! Laudantium reiciendis
+                            quos a perspiciatis vero sed iure aut, sequi nam numquam debitis, consequuntur incidunt
+                            dolore temporibus maiores quo. Facilis, suscipit. Magni dicta molestias ducimus incidunt
+                            dolores omnis, illo vitae adipisci, tenetur odio nobis, hic molestiae exercitationem debitis
+                            eius suscipit cum. Sit eum veniam mollitia, possimus officiis excepturi nemo maiores
+                            consectetur temporibus ex corrupti distinctio rerum natus voluptas eos consequuntur vero non
+                            commodi ad obcaecati adipisci enim. Reprehenderit ipsum unde consequuntur magnam, porro
+                            autem in delectus fugit maiores, officia inventore rerum!</p>
+                    </div>
+                </div>
+            </div>
+        </section>
+
+        <section id="bloodbank">
+            <br><br><br>
+            <div class="services">
+                <h2>Blood Bank</h2>
+                <div class="div2"></div>
+                <div class="div"></div>
+                <div class="boxes">
+                    <div class="content">
+                        <p>Lorem ipsum dolor sit amet consectetur adipisicing elit. Minima, doloribus fugiat eligendi
+                            adipisci qui illum voluptatem, molestiae dolore consequuntur quia corporis. Expedita
+                            voluptate
+                            soluta error alias provident sapiente, exercitationem recusandae?Lorem ipsum dolor sit amet
+                            consectetur adipisicing elit. Possimus hic, error similique eveniet, aliquam facere
+                            doloribus tempore quisquam adipisci ad neque quidem blanditiis ipsam ut, quis inventore
+                            itaque cupiditate eaque. Eveniet rem beatae esse ipsam alias, voluptates fugit explicabo
+                            doloribus incidunt velit suscipit eum iusto inventore. Maxime facilis blanditiis dicta
+                            provident hic dolore eligendi labore id eum? Esse, minima a? In fuga quis veniam nesciunt,
+                            soluta vel tenetur dolorem suscipit consequuntur! Dolorem, sapiente nesciunt reprehenderit
+                            provident eveniet vel vero minima excepturi ex modi totam aspernatur possimus ipsa soluta
+                            nostrum, aut quisquam laudantium maxime. Alias similique distinctio facilis exercitationem,
+                            id sapiente numquam voluptatum possimus nihil. Repudiandae dicta eligendi aperiam animi ad
+                            quasi? Quo eveniet aliquid eos consequuntur! Libero illum sint quaerat sapiente,
+                            exercitationem et assumenda odit voluptate rem voluptatibus culpa eum ea a quod, consectetur
+                            quos officia sequi eligendi, nemo architecto quia vitae delectus reprehenderit? Hic
+                            veritatis expedita aut dolores error similique distinctio aliquam fugit temporibus. Nisi
+                            ipsa expedita nobis illum culpa soluta eos voluptatibus, alias ullam veniam ut eaque
+                            consequatur quis quas unde velit quisquam, nulla molestiae quo quos. Praesentium quas at
+                            nobis quia impedit ducimus exercitationem maiores, nemo beatae repudiandae ad libero tenetur
+                            reiciendis ipsa alias! Nesciunt suscipit nihil cupiditate a accusantium mollitia error
+                            cumque eveniet neque, illum doloribus libero, tempore incidunt officiis ipsam sint fugit
+                            corporis laboriosam exercitationem veritatis voluptate optio inventore consequuntur fuga!
+                            Quia, veniam eligendi! Nulla delectus odit inventore ullam quas dignissimos vitae enim
+                            quisquam sed minus praesentium quis magnam, reiciendis, velit fugit temporibus dolor neque
+                            asperiores! Nostrum libero exercitationem id a architecto laboriosam magni doloribus minima,
+                            tempore corrupti! Possimus minima aliquam esse ratione fuga rem praesentium eius, dicta
+                            maiores error, qui temporibus corrupti ab modi eos sit voluptatem tempora doloribus tenetur
+                            atque nihil ut. Minima, illum? Adipisci consequatur tempore architecto voluptatibus illum
+                            provident quibusdam temporibus, ad, earum, esse eum in ipsam est optio doloribus natus.
+                            Saepe reiciendis magni nostrum et explicabo reprehenderit quia facere! Laudantium reiciendis
+                            quos a perspiciatis vero sed iure aut, sequi nam numquam debitis, consequuntur incidunt
+                            dolore temporibus maiores quo. Facilis, suscipit. Magni dicta molestias ducimus incidunt
+                            dolores omnis, illo vitae adipisci, tenetur odio nobis, hic molestiae exercitationem debitis
+                            eius suscipit cum. Sit eum veniam mollitia, possimus officiis excepturi nemo maiores
+                            consectetur temporibus ex corrupti distinctio rerum natus voluptas eos consequuntur vero non
+                            commodi ad obcaecati adipisci enim. Reprehenderit ipsum unde consequuntur magnam, porro
+                            autem in delectus fugit maiores, officia inventore rerum!</p>
+                    </div>
+                    <div class="img" style="background-image: url('images/service-bloodbank.jpg');">
+                        <!-- <img src="images/Service-emergency.jpg" alt=""> -->
+                    </div>
+                </div>
+            </div>
+
+        </section>
+
+        <section id="ambulance">
+            <br><br><br>
+            <div class="services">
+                <h2>Ambulance</h2>
+                <div class="div2"></div>
+                <div class="div"></div>
+                <div class="boxes">
+                    <div class="img" style="background-image: url('images/service-ambulance.jpg');">
+                        <!-- <img src="images/Service-emergency.jpg" alt=""> -->
+                    </div>
+                    <div class="content">
+                        <p>Lorem ipsum dolor sit amet consectetur adipisicing elit. Minima, doloribus fugiat eligendi
+                            adipisci qui illum voluptatem, molestiae dolore consequuntur quia corporis. Expedita
+                            voluptate
+                            soluta error alias provident sapiente, exercitationem recusandae?Lorem ipsum dolor sit amet
+                            consectetur adipisicing elit. Possimus hic, error similique eveniet, aliquam facere
+                            doloribus tempore quisquam adipisci ad neque quidem blanditiis ipsam ut, quis inventore
+                            itaque cupiditate eaque. Eveniet rem beatae esse ipsam alias, voluptates fugit explicabo
+                            doloribus incidunt velit suscipit eum iusto inventore. Maxime facilis blanditiis dicta
+                            provident hic dolore eligendi labore id eum? Esse, minima a? In fuga quis veniam nesciunt,
+                            soluta vel tenetur dolorem suscipit consequuntur! Dolorem, sapiente nesciunt reprehenderit
+                            provident eveniet vel vero minima excepturi ex modi totam aspernatur possimus ipsa soluta
+                            nostrum, aut quisquam laudantium maxime. Alias similique distinctio facilis exercitationem,
+                            id sapiente numquam voluptatum possimus nihil. Repudiandae dicta eligendi aperiam animi ad
+                            quasi? Quo eveniet aliquid eos consequuntur! Libero illum sint quaerat sapiente,
+                            exercitationem et assumenda odit voluptate rem voluptatibus culpa eum ea a quod, consectetur
+                            quos officia sequi eligendi, nemo architecto quia vitae delectus reprehenderit? Hic
+                            veritatis expedita aut dolores error similique distinctio aliquam fugit temporibus. Nisi
+                            ipsa expedita nobis illum culpa soluta eos voluptatibus, alias ullam veniam ut eaque
+                            consequatur quis quas unde velit quisquam, nulla molestiae quo quos. Praesentium quas at
+                            nobis quia impedit ducimus exercitationem maiores, nemo beatae repudiandae ad libero tenetur
+                            reiciendis ipsa alias! Nesciunt suscipit nihil cupiditate a accusantium mollitia error
+                            cumque eveniet neque, illum doloribus libero, tempore incidunt officiis ipsam sint fugit
+                            corporis laboriosam exercitationem veritatis voluptate optio inventore consequuntur fuga!
+                            Quia, veniam eligendi! Nulla delectus odit inventore ullam quas dignissimos vitae enim
+                            quisquam sed minus praesentium quis magnam, reiciendis, velit fugit temporibus dolor neque
+                            asperiores! Nostrum libero exercitationem id a architecto laboriosam magni doloribus minima,
+                            tempore corrupti! Possimus minima aliquam esse ratione fuga rem praesentium eius, dicta
+                            maiores error, qui temporibus corrupti ab modi eos sit voluptatem tempora doloribus tenetur
+                            atque nihil ut. Minima, illum? Adipisci consequatur tempore architecto voluptatibus illum
+                            provident quibusdam temporibus, ad, earum, esse eum in ipsam est optio doloribus natus.
+                            Saepe reiciendis magni nostrum et explicabo reprehenderit quia facere! Laudantium reiciendis
+                            quos a perspiciatis vero sed iure aut, sequi nam numquam debitis, consequuntur incidunt
+                            dolore temporibus maiores quo. Facilis, suscipit. Magni dicta molestias ducimus incidunt
+                            dolores omnis, illo vitae adipisci, tenetur odio nobis, hic molestiae exercitationem debitis
+                            eius suscipit cum. Sit eum veniam mollitia, possimus officiis excepturi nemo maiores
+                            consectetur temporibus ex corrupti distinctio rerum natus voluptas eos consequuntur vero non
+                            commodi ad obcaecati adipisci enim. Reprehenderit ipsum unde consequuntur magnam, porro
+                            autem in delectus fugit maiores, officia inventore rerum!</p>
+                    </div>
+                </div>
+            </div>
+
+        </section>
+
+        <section id="pathology">
+            <br><br><br>
+            <div class="services">
+                <h2>Pathology</h2>
+                <div class="div2"></div>
+                <div class="div"></div>
+                <div class="boxes">
+                    <div class="content">
+                        <p>Lorem ipsum dolor sit amet consectetur adipisicing elit. Minima, doloribus fugiat eligendi
+                            adipisci qui illum voluptatem, molestiae dolore consequuntur quia corporis. Expedita
+                            voluptate
+                            soluta error alias provident sapiente, exercitationem recusandae?Lorem ipsum dolor sit amet
+                            consectetur adipisicing elit. Possimus hic, error similique eveniet, aliquam facere
+                            doloribus tempore quisquam adipisci ad neque quidem blanditiis ipsam ut, quis inventore
+                            itaque cupiditate eaque. Eveniet rem beatae esse ipsam alias, voluptates fugit explicabo
+                            doloribus incidunt velit suscipit eum iusto inventore. Maxime facilis blanditiis dicta
+                            provident hic dolore eligendi labore id eum? Esse, minima a? In fuga quis veniam nesciunt,
+                            soluta vel tenetur dolorem suscipit consequuntur! Dolorem, sapiente nesciunt reprehenderit
+                            provident eveniet vel vero minima excepturi ex modi totam aspernatur possimus ipsa soluta
+                            nostrum, aut quisquam laudantium maxime. Alias similique distinctio facilis exercitationem,
+                            id sapiente numquam voluptatum possimus nihil. Repudiandae dicta eligendi aperiam animi ad
+                            quasi? Quo eveniet aliquid eos consequuntur! Libero illum sint quaerat sapiente,
+                            exercitationem et assumenda odit voluptate rem voluptatibus culpa eum ea a quod, consectetur
+                            quos officia sequi eligendi, nemo architecto quia vitae delectus reprehenderit? Hic
+                            veritatis expedita aut dolores error similique distinctio aliquam fugit temporibus. Nisi
+                            ipsa expedita nobis illum culpa soluta eos voluptatibus, alias ullam veniam ut eaque
+                            consequatur quis quas unde velit quisquam, nulla molestiae quo quos. Praesentium quas at
+                            nobis quia impedit ducimus exercitationem maiores, nemo beatae repudiandae ad libero tenetur
+                            reiciendis ipsa alias! Nesciunt suscipit nihil cupiditate a accusantium mollitia error
+                            cumque eveniet neque, illum doloribus libero, tempore incidunt officiis ipsam sint fugit
+                            corporis laboriosam exercitationem veritatis voluptate optio inventore consequuntur fuga!
+                            Quia, veniam eligendi! Nulla delectus odit inventore ullam quas dignissimos vitae enim
+                            quisquam sed minus praesentium quis magnam, reiciendis, velit fugit temporibus dolor neque
+                            asperiores! Nostrum libero exercitationem id a architecto laboriosam magni doloribus minima,
+                            tempore corrupti! Possimus minima aliquam esse ratione fuga rem praesentium eius, dicta
+                            maiores error, qui temporibus corrupti ab modi eos sit voluptatem tempora doloribus tenetur
+                            atque nihil ut. Minima, illum? Adipisci consequatur tempore architecto voluptatibus illum
+                            provident quibusdam temporibus, ad, earum, esse eum in ipsam est optio doloribus natus.
+                            Saepe reiciendis magni nostrum et explicabo reprehenderit quia facere! Laudantium reiciendis
+                            quos a perspiciatis vero sed iure aut, sequi nam numquam debitis, consequuntur incidunt
+                            dolore temporibus maiores quo. Facilis, suscipit. Magni dicta molestias ducimus incidunt
+                            dolores omnis, illo vitae adipisci, tenetur odio nobis, hic molestiae exercitationem debitis
+                            eius suscipit cum. Sit eum veniam mollitia, possimus officiis excepturi nemo maiores
+                            consectetur temporibus ex corrupti distinctio rerum natus voluptas eos consequuntur vero non
+                            commodi ad obcaecati adipisci enim. Reprehenderit ipsum unde consequuntur magnam, porro
+                            autem in delectus fugit maiores, officia inventore rerum!</p>
+                    </div>
+                    <div class="img" style="background-image: url('images/service-pathology.jpg');">
+                        <!-- <img src="images/Service-emergency.jpg" alt=""> -->
+                    </div>
+                </div>
+            </div>
+
+        </section>
+
+        <section id="icu">
+            <br><br><br>
+            <div class="services">
+                <h2>I C U</h2>
+                <div class="div2"></div>
+                <div class="div"></div>
+                <div class="boxes">
+                    <div class="img" style="background-image: url('images/service-icu.jpg');">
+                        <!-- <img src="images/Service-emergency.jpg" alt=""> -->
+                    </div>
+                    <div class="content">
+                        <p>Lorem ipsum dolor sit amet consectetur adipisicing elit. Minima, doloribus fugiat eligendi
+                            adipisci qui illum voluptatem, molestiae dolore consequuntur quia corporis. Expedita
+                            voluptate
+                            soluta error alias provident sapiente, exercitationem recusandae?Lorem ipsum dolor sit amet
+                            consectetur adipisicing elit. Possimus hic, error similique eveniet, aliquam facere
+                            doloribus tempore quisquam adipisci ad neque quidem blanditiis ipsam ut, quis inventore
+                            itaque cupiditate eaque. Eveniet rem beatae esse ipsam alias, voluptates fugit explicabo
+                            doloribus incidunt velit suscipit eum iusto inventore. Maxime facilis blanditiis dicta
+                            provident hic dolore eligendi labore id eum? Esse, minima a? In fuga quis veniam nesciunt,
+                            soluta vel tenetur dolorem suscipit consequuntur! Dolorem, sapiente nesciunt reprehenderit
+                            provident eveniet vel vero minima excepturi ex modi totam aspernatur possimus ipsa soluta
+                            nostrum, aut quisquam laudantium maxime. Alias similique distinctio facilis exercitationem,
+                            id sapiente numquam voluptatum possimus nihil. Repudiandae dicta eligendi aperiam animi ad
+                            quasi? Quo eveniet aliquid eos consequuntur! Libero illum sint quaerat sapiente,
+                            exercitationem et assumenda odit voluptate rem voluptatibus culpa eum ea a quod, consectetur
+                            quos officia sequi eligendi, nemo architecto quia vitae delectus reprehenderit? Hic
+                            veritatis expedita aut dolores error similique distinctio aliquam fugit temporibus. Nisi
+                            ipsa expedita nobis illum culpa soluta eos voluptatibus, alias ullam veniam ut eaque
+                            consequatur quis quas unde velit quisquam, nulla molestiae quo quos. Praesentium quas at
+                            nobis quia impedit ducimus exercitationem maiores, nemo beatae repudiandae ad libero tenetur
+                            reiciendis ipsa alias! Nesciunt suscipit nihil cupiditate a accusantium mollitia error
+                            cumque eveniet neque, illum doloribus libero, tempore incidunt officiis ipsam sint fugit
+                            corporis laboriosam exercitationem veritatis voluptate optio inventore consequuntur fuga!
+                            Quia, veniam eligendi! Nulla delectus odit inventore ullam quas dignissimos vitae enim
+                            quisquam sed minus praesentium quis magnam, reiciendis, velit fugit temporibus dolor neque
+                            asperiores! Nostrum libero exercitationem id a architecto laboriosam magni doloribus minima,
+                            tempore corrupti! Possimus minima aliquam esse ratione fuga rem praesentium eius, dicta
+                            maiores error, qui temporibus corrupti ab modi eos sit voluptatem tempora doloribus tenetur
+                            atque nihil ut. Minima, illum? Adipisci consequatur tempore architecto voluptatibus illum
+                            provident quibusdam temporibus, ad, earum, esse eum in ipsam est optio doloribus natus.
+                            Saepe reiciendis magni nostrum et explicabo reprehenderit quia facere! Laudantium reiciendis
+                            quos a perspiciatis vero sed iure aut, sequi nam numquam debitis, consequuntur incidunt
+                            dolore temporibus maiores quo. Facilis, suscipit. Magni dicta molestias ducimus incidunt
+                            dolores omnis, illo vitae adipisci, tenetur odio nobis, hic molestiae exercitationem debitis
+                            eius suscipit cum. Sit eum veniam mollitia, possimus officiis excepturi nemo maiores
+                            consectetur temporibus ex corrupti distinctio rerum natus voluptas eos consequuntur vero non
+                            commodi ad obcaecati adipisci enim. Reprehenderit ipsum unde consequuntur magnam, porro
+                            autem in delectus fugit maiores, officia inventore rerum!</p>
+                    </div>
+                </div>
+            </div>
+
+        </section>
+
+        <section id="pharmacy">
+            <br><br><br>
+            <div class="services">
+                <h2>Pharmacy</h2>
+                <div class="div2"></div>
+                <div class="div"></div>
+                <div class="boxes" style="margin-bottom: 50px;">
+                    <div class="content">
+                        <p>Lorem ipsum dolor sit amet consectetur adipisicing elit. Minima, doloribus fugiat eligendi
+                            adipisci qui illum voluptatem, molestiae dolore consequuntur quia corporis. Expedita
+                            voluptate
+                            soluta error alias provident sapiente, exercitationem recusandae?Lorem ipsum dolor sit amet
+                            consectetur adipisicing elit. Possimus hic, error similique eveniet, aliquam facere
+                            doloribus tempore quisquam adipisci ad neque quidem blanditiis ipsam ut, quis inventore
+                            itaque cupiditate eaque. Eveniet rem beatae esse ipsam alias, voluptates fugit explicabo
+                            doloribus incidunt velit suscipit eum iusto inventore. Maxime facilis blanditiis dicta
+                            provident hic dolore eligendi labore id eum? Esse, minima a? In fuga quis veniam nesciunt,
+                            soluta vel tenetur dolorem suscipit consequuntur! Dolorem, sapiente nesciunt reprehenderit
+                            provident eveniet vel vero minima excepturi ex modi totam aspernatur possimus ipsa soluta
+                            nostrum, aut quisquam laudantium maxime. Alias similique distinctio facilis exercitationem,
+                            id sapiente numquam voluptatum possimus nihil. Repudiandae dicta eligendi aperiam animi ad
+                            quasi? Quo eveniet aliquid eos consequuntur! Libero illum sint quaerat sapiente,
+                            exercitationem et assumenda odit voluptate rem voluptatibus culpa eum ea a quod, consectetur
+                            quos officia sequi eligendi, nemo architecto quia vitae delectus reprehenderit? Hic
+                            veritatis expedita aut dolores error similique distinctio aliquam fugit temporibus. Nisi
+                            ipsa expedita nobis illum culpa soluta eos voluptatibus, alias ullam veniam ut eaque
+                            consequatur quis quas unde velit quisquam, nulla molestiae quo quos. Praesentium quas at
+                            nobis quia impedit ducimus exercitationem maiores, nemo beatae repudiandae ad libero tenetur
+                            reiciendis ipsa alias! Nesciunt suscipit nihil cupiditate a accusantium mollitia error
+                            cumque eveniet neque, illum doloribus libero, tempore incidunt officiis ipsam sint fugit
+                            corporis laboriosam exercitationem veritatis voluptate optio inventore consequuntur fuga!
+                            Quia, veniam eligendi! Nulla delectus odit inventore ullam quas dignissimos vitae enim
+                            quisquam sed minus praesentium quis magnam, reiciendis, velit fugit temporibus dolor neque
+                            asperiores! Nostrum libero exercitationem id a architecto laboriosam magni doloribus minima,
+                            tempore corrupti! Possimus minima aliquam esse ratione fuga rem praesentium eius, dicta
+                            maiores error, qui temporibus corrupti ab modi eos sit voluptatem tempora doloribus tenetur
+                            atque nihil ut. Minima, illum? Adipisci consequatur tempore architecto voluptatibus illum
+                            provident quibusdam temporibus, ad, earum, esse eum in ipsam est optio doloribus natus.
+                            Saepe reiciendis magni nostrum et explicabo reprehenderit quia facere! Laudantium reiciendis
+                            quos a perspiciatis vero sed iure aut, sequi nam numquam debitis, consequuntur incidunt
+                            dolore temporibus maiores quo. Facilis, suscipit. Magni dicta molestias ducimus incidunt
+                            dolores omnis, illo vitae adipisci, tenetur odio nobis, hic molestiae exercitationem debitis
+                            eius suscipit cum. Sit eum veniam mollitia, possimus officiis excepturi nemo maiores
+                            consectetur temporibus ex corrupti distinctio rerum natus voluptas eos consequuntur vero non
+                            commodi ad obcaecati adipisci enim. Reprehenderit ipsum unde consequuntur magnam, porro
+                            autem in delectus fugit maiores, officia inventore rerum!</p>
+                    </div>
+                    <div class="img" style="background-image: url('images/service-pharmacy.jpg');">
+                        <!-- <img src="images/Service-emergency.jpg" alt=""> -->
+                    </div>
+                </div>
+            </div>
+
+        </section>
+
+    </main>
+
+    <footer>
+        <!-- info section starts  -->
+
+        <div class="info">
+            <div class="container">
+                <div class="details">
+
+                    <div class="boxes">
+                        <h4>Patient Guide</h4>
+                        <div class="navbar">
+                            <ul>
+                                <a href="index.php#findDoctor">
+                                    <li>Find A Doctor</li>
+                                </a>
+                                <a href="appointment.php">
+                                    <li>Book An Appointment</li>
+                                </a>
+                            </ul>
+                        </div>
+                    </div>
+
+                    <div class="boxes">
+                        <h4>Diseases we Treat</h4>
+                        <ul>
+                            <li>Chest Pain</li>
+                            <li>Heart Attack</li>
+                            <li>Thyroid Problem</li>
+                            <li>Varicos Vains</li>
+                            <li>Normal Diseases</li>
+                            <a href="">
+                                <li>View All</li>
+                            </a>
+                        </ul>
+                    </div>
+
+                    <div class="boxes">
+                        <h4>Specialities</h4>
+                        <ul>
+                            <li>General Medicines</li>
+                            <li>ENT</li>
+                            <li>Paediatrics and Neonatology</li>
+                            <li>Dental</li>
+                            <li>Cardiology</li>
+                            <li>Gastrology</li>
+                            <li>Opthalmonology</li>
+                        </ul>
+                    </div>
+
+                    <div class="boxes">
+                        <h4>Contacts</h4>
+                        <ul>
+                            <li>Emercency : 112</li>
+                            <li>Ambulance : 102</li>
+                            <li>Hospital on wheels : 104</li>
+                            <li>TollFree No : 18001211210011</li>
+                            <li>TollFree No : +91 9656856964</li>
+                        </ul>
+                    </div>
+                </div>
+            </div>
+        </div>
+
+        <!-- info section ends  -->
+    </footer>
+
+    <script>
+        console.log("hey baby");
+        let body = document.querySelector("body");
+
+        // to show navbar when clicked on show button
+        let show = document.querySelector(".shownavbar");
+        let display = 0;
+
+        let navbar = document.querySelector(".navbar");
+
+        show.onclick = (e) => {
+            console.log(e.target.nodeName);
+            if (display === 0) {
+                show.style.animation = "transform 0.8s linear";
+                setTimeout(() => {
+                    console.log("navbar visible");
+                    navbar.style.display = "flex";
+                    show.innerHTML = 'X';
+                    show.style.padding = '8px 10px';
+                    show.style.border = '2px solid white';
+                    show.style.fontSize = '20px';
+                    navbar.style.animation = "navshow 0.4s linear";
+                    navbar.style.right = "0px";
+                    display = 1;
+                }, 400);
+            } else if (display === 1) {
+                console.log("navbar hidden");
+                navbar.style.display = "none";
+                show.innerHTML = '<p class="lines"></p><p class="lines"></p><p class="lines"></p>';
+                show.style.padding = '0px';
+                show.style.border = 'none';
+                show.style.fontSize = '20px';
+                show.style.animation = "none";
+                navbar.style.right = "-300px";
+                display = 0;
+            }
+        }
+
+
+        // to automaticlly hide navbar when clicked somewhere else on the page
+        if (navbar.style.display != "none") {
+            window.addEventListener('click', (e) => {
+                console.log(e.target.nodeName);
+                if (e.target.nodeName === "P") {
+
+                } else if (e.target.nodeName != "P") {
+                    console.log("windows is clicked");
+                    navbar.style.display = "none";
+                    show.innerHTML = '<p class="lines"></p><p class="lines"></p><p class="lines"></p>';
+                    show.style.padding = '0px';
+                    show.style.border = 'none';
+                    show.style.fontSize = '20px';
+                    navbar.style.right = "-300px";
+                    display = 0;
+                }
+            })
+        }
+
+        // scroll time animation to make divs visible
+
+        let divs = document.querySelectorAll("div");
+
+        window.addEventListener("scroll", scroll);
+        scroll();
+
+        function scroll() {
+            console.log(window.innerHeight / 10 * 9);
+
+            let triggerBottom = window.innerHeight / 10 * 9;
+
+            divs.forEach(div => {
+                let heading = document.querySelector("div h2");
+                let divTop = div.getBoundingClientRect().top;
+
+                if (divTop < triggerBottom) {
+                    div.classList.add("show");
+                    // heading.style.animation ="border 2s forwards";
+                } else {
+                    div.classList.remove("show");
+                }
+
+                if (divTop < triggerBottom && div.classList.contains("show")) {
+                    // heading.style.animation ="border 2s forwards";
+                }
+            })
+        }
+    </script>
+</body>
+
+</html>

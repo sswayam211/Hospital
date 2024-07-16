@@ -1,0 +1,267 @@
+<?php
+
+$showresult = false;
+$showerror = false;
+
+if ($_SERVER["REQUEST_METHOD"] == "POST") {
+
+    // establishing connection
+    $server = "localhost";
+    $username = "root";
+    $password = "";
+    $database = "hospital";
+
+    // connnecting to database
+    $con = mysqli_connect($server, $username, $password, $database);
+
+    // checking connection established 
+    if (!$con) {
+        die("sorry connection failed : " . mysqli_connect_error());
+    } else {
+        // echo "connection succesfull<br>";
+    }
+
+    if (isset($_POST['submit'])) {
+        // inserting into database 
+        $uname = $_POST["username"];
+        $fileName = $_FILES['image']['name'];
+        $tempName = $_FILES['image']['tmp_name'];
+        $folder = 'upload/' . $fileName;
+        $department = $_POST["department"];
+        $pword = $_POST["password"];
+        $cpword = $_POST["cpassword"];
+
+        // checking whether username exixts in database or not 
+
+        $existSql = "SELECT * FROM `doctor2` WHERE Name = '$uname'";
+
+        $result = mysqli_query($con, $existSql);
+
+        $numExistRows = mysqli_num_rows($result);
+
+        if ($numExistRows > 0) {
+            $showerror = "Username already exists, please choose another username.";
+        } else {
+            if (($pword == $cpword)) {
+                $hash = password_hash($pword, PASSWORD_DEFAULT);
+
+                $sql = "INSERT INTO `doctor2` (`Name`, `Department`, `password`, `Photo`, `date`) VALUES ('$uname','$department', '$hash','$fileName', current_timestamp())";
+
+                $result = mysqli_query($con, $sql);
+
+                if ($result && move_uploaded_file($tempName, $folder) ) {
+                    $showresult = true;
+                }
+            } else {
+                $showerror = "password do not match.";
+            }
+        }
+
+        // $sql = "Insert into image (name, image) values('$name','$fileName')";
+
+        // $result = mysqli_query($con, $sql);
+
+        // if (move_uploaded_file($tempName, $folder)) {
+        //     echo "file uploaded successfully";
+        // } else {
+        //     echo "file not uploaded";
+        // }
+    }
+}
+
+?>
+
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>try</title>
+    <style>
+        body {
+            margin: 0;
+            padding: 0;
+
+        }
+
+        * {
+            /* box-sizing: border-box; */
+            font-family: sans-serif;
+        }
+
+        .container {
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            flex-direction: column;
+        }
+
+        h1 {}
+
+        form {
+            width: 40%;
+        }
+
+        .form-group {
+            display: flex;
+            justify-content: center;
+            /* align-items: center;   */
+            flex-direction: column;
+            margin: 0px;
+            padding: 5px 0px;
+        }
+
+        .form-group input {
+            padding: 5px 5px;
+            border-radius: 10px;
+        }
+
+        .form-group label {
+            margin: 0px 5px;
+        }
+
+        .checkbox {
+            display: block;
+            padding: 0px 0px 10px 5px;
+        }
+
+        .form-group button {
+            width: 150px;
+            margin: auto;
+        }
+
+        .result {
+            /* background-color: rgb(120, 244, 120); */
+            margin: 0px;
+            padding: 0px;
+            width: 100%;
+            height: 50px;
+            line-height: 50px;
+
+        }
+
+        .result p {
+            margin: 0;
+            padding: 0px 15px;
+        }
+
+        .result .close {
+            display: block;
+            position: absolute;
+            right: 20px;
+            margin: 0px;
+            padding: 0px 10px;
+            top: 0px;
+            font-size: 20px;
+            font-weight: 600;
+            cursor: pointer;
+        }
+
+        .result .close:hover {
+            background-color: rgb(252, 252, 252);
+        }
+
+        .Success {
+            background-color: rgb(128, 248, 128);
+        }
+
+        .error {
+            background-color: rgb(243, 99, 99);
+        }
+    </style>
+</head>
+
+<body>
+
+    <!-- <form action="try.php" method="post" enctype="multipart/form-data">
+    <input type="text" name="name" id="name">
+    <input type="file" name="image" id="image">
+    <br><br>
+    <button type="submit" name="submit">submit</button>
+</form> -->
+
+    <?php
+    if ($showresult) {
+        echo "<div class='result Success'>
+            <p><strong>Success</strong> : Your account has been succesfully created,Please login to continue.<span class='close'>X</span></p>
+        </div>";
+    }
+
+    if ($showerror) {
+        echo '<div class="result error">
+            <p> <strong>Error</strong> : ' . $showerror . ' <span class="close">X</span></p>
+        </div>';
+    }
+
+    ?>
+
+
+    <div class="container">
+        <h1>Create an Account</h1>
+        <form action="try.php" method="post" enctype="multipart/form-data">
+            <div class="form-group">
+                <label for="username">Username</label>
+                <input type="text" name="username" id="username" maxlength="15" minlength="6">
+                <label for="userimg">User Image</label>
+                <input type="file" name="image" id="image">
+            </div>
+
+            <div class="form-group">
+                <label for="department">Department</label>
+                <input type="text" name="department" id="department">
+            </div>
+
+            <div class="form-group">
+                <label for="password">Password</label>
+                <input type="password" name="password" id="password">
+            </div>
+
+            <div class="form-group">
+                <label for="cpassword">Confirm Password</label>
+                <input type="password" name="cpassword" id="cpassword">
+            </div>
+
+            <div class="form-group checkbox">
+                <input type="checkbox" name="showpassword" id="showpassword">Show Password
+            </div>
+
+            <div class="form-group">
+                <button type="submit" name="submit">Create Account</button>
+            </div>
+
+            <div class="form-group">
+                <p>If you already have account <a href="login.php">Login</a></p>
+            </div>
+        </form>
+    </div>
+
+    <script>
+        console.log("hey baby after a long time dear");
+
+        let password = document.querySelector("#password");
+        let cpassword = document.querySelector("#cpassword");
+        let showpassword = document.querySelector("#showpassword");
+
+        showpassword.onclick = () => {
+            if (password.type == "password") {
+                password.type = "text";
+                cpassword.type = "text";
+            } else {
+                password.type = "password";
+                cpassword.type = "password";
+            }
+        }
+
+        let close = document.querySelector(".close");
+        let result = document.querySelector(".result");
+
+        close.onclick = () => {
+            result.style.display = "none";
+            console.log("close has been clicked");
+        }
+    </script>
+
+</body>
+
+</html>

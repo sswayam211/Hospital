@@ -1,0 +1,531 @@
+<?php
+// echo "welcome to your account ";
+
+session_start();
+
+if (!isset($_SESSION['loggedin']) || $_SESSION['loggedin'] != true) {
+    header('location: index.php');
+    exit;
+}
+
+// echo $_SESSION['username'] . "<br>";
+$showresult = false;
+
+// establishing connection
+$server = "localhost";
+$username = "root";
+$password = "";
+$database = "hospital";
+
+// connnecting to database
+$con = mysqli_connect($server, $username, $password, $database);
+
+// checking connection established 
+if (!$con) {
+    die("sorry connection failed : " . mysqli_connect_error());
+} else {
+    // echo "connection succesfull<br>";
+}
+
+$doctorName = $_SESSION['username'];
+
+$sql = "SELECT * FROM `doctor2` WHERE Name='$doctorName'";
+
+$result = mysqli_query($con, $sql);
+
+//  finding the no. of rows returned 
+$row = mysqli_num_rows($result);
+// echo "total no. of rows in table : " . "$row" . "<br>";
+
+// displying data 
+if ($row == 1) {
+    $showresult = true;
+    while ($row = mysqli_fetch_assoc($result)) {
+        $serial_no = $row["S_no"];
+        $name = $row["Name"];
+        $department = $row["Department"];
+        $degree = $row["Degree"];
+        $photo = $row["Photo"];
+    }
+}
+
+// $con->close();
+
+?>
+
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Account</title>
+    <style>
+        body {
+            margin: 0px;
+            padding: 0px;
+            background-color: rgb(204, 177, 245);
+            color: white;
+            cursor: context-menu;
+            z-index: 0;
+            height: 100%;
+            width: 100%;
+            overflow-x: hidden;
+        }
+
+        body::-webkit-scrollbar {
+            width: 10px;
+            height: 0px;
+        }
+
+        body::-webkit-scrollbar-track {
+            background-color: transparent;
+        }
+
+        body::-webkit-scrollbar-thumb {
+            background: white;
+            border-radius: 10px;
+            cursor: pointer;
+        }
+
+        * {
+            margin: 0px;
+            padding: 0px;
+            list-style: none;
+            text-decoration: none;
+            box-sizing: border-box;
+            line-height: 1.5;
+            font-family: sans-serif
+        }
+
+        /* header section start  */
+
+        .header {
+            display: block;
+            position: fixed;
+            top: 0px;
+            width: 100%;
+            color: white;
+            padding: 20px 20px;
+            background-color: rgb(183, 138, 252);
+            z-index: 1;
+        }
+
+        @media only screen and (max-width :600px) {
+            .header {
+                padding: 13px 20px;
+            }
+        }
+
+        .menubar {
+            display: flex;
+            flex-direction: row;
+        }
+
+        /* bad ma hatana hai  */
+        .menubar .shownavbar {
+            position: absolute;
+            right: 20px;
+            top: 22px;
+            line-height: 1;
+            z-index: 2;
+            cursor: pointer;
+            /* border: 2px solid white;
+            height: 50px;
+            width: 50px; */
+        }
+
+        @media only screen and (max-width :600px) {
+            .menubar .shownavbar {
+                top: 15px;
+            }
+        }
+
+        @keyframes transform {
+            0% {
+                transform: rotate(0deg);
+            }
+
+            50% {
+                border-radius: 50%;
+            }
+
+            100% {
+                transform: rotate(360deg);
+                border-radius: none;
+            }
+        }
+
+        .lines {
+            background-color: white;
+            height: 7px;
+            width: 40px;
+            margin: 6px 0px;
+            border-radius: 3px;
+        }
+
+        .menubar .navbar {
+            display: none;
+            background-color: rgb(208, 195, 195);
+            position: absolute;
+            right: -300px;
+            top: 0px;
+            z-index: 1;
+            padding: 10px 0px;
+            width: 300px;
+            /* animation: navshow 4s linear; */
+        }
+
+        @keyframes navshow {
+            0% {
+                right: -300px;
+            }
+
+            100% {
+                right: 0px;
+            }
+        }
+
+        @media only screen and (max-width :840px) {
+            .menubar .navbar {
+                width: 220px;
+            }
+        }
+
+        /* @media only screen and (max-width :550px) {
+            .menubar .navbar {
+                display: none;
+                justify-content: center;
+                align-items: center;
+                width: 100%;
+                background-color: rgba(208, 195, 195, 0.737);
+                overflow: scroll;
+                height: 100vh;
+                border-radius: 40%;
+                padding: 100px;
+                animation: all 0.5s linear;
+            }
+
+            .menubar .navbar::-webkit-scrollbar {
+                width: 100%;
+            }
+
+            .menubar .navbar ::before {
+                content: none;
+            }
+
+            @keyframes all {
+                0% {
+                    height: 21px;
+                    width: 21px;
+                    top: 50vh;
+                    right: 46%;
+                    padding: 0px;
+                }
+
+                50% {
+                    height: 50vh;
+                    width: 50%;
+                    top: 25vh;
+                    right: 24%;
+                    padding: 50px;
+                }
+
+                100% {
+                    height: 100vh;
+                    width: 100%;
+                    top: 0vh;
+                    right: 0%;
+                    padding: 100px;
+                }
+            }
+        }
+ */
+        .menubar .navbar a {
+            color: black;
+        }
+
+        .menubar .navbar li {
+            padding: 10px 10px;
+        }
+
+        @media only screen and (max-width :550px) {
+            .menubar .navbar li {
+                padding: 5px 10px;
+            }
+        }
+
+        .menubar .navbar li:nth-child(10) {
+            font-size: 17px;
+            font-weight: bold;
+        }
+
+        .menubar .navbar li:hover {
+            color: rgb(113, 112, 112);
+            background-color: rgb(205, 188, 188);
+        }
+
+        /* header section :ends  */
+
+
+        /* content section start  */
+        .userDetails .container {
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            height: 400px;
+            width: 650px;
+            margin: 0px auto;
+            margin-bottom: 10px;
+            /* border: 2px solid white; */
+            /* border-radius: 15px; */
+        }
+
+        @media only screen and (max-width :650px) {
+            .userDetails .container {
+                width: 90%;
+                height: fit-content;
+                display: block;
+                text-align: center;
+                padding: 20px;
+            }
+        }
+
+        .userDetails .container img {
+            height: 300px;
+            margin: 0px 20px;
+            border-radius: 50%;
+        }
+
+        @media only screen and (max-width :424px) {
+            .userDetails .container img {
+                height: 210px;
+                margin: 0px 20px;
+            }
+        }
+
+        .appointment {
+            width: fit-content;
+            margin: auto;
+        }
+
+        .appointment button {
+            background: transparent;
+            padding: 5px;
+            color: white;
+            font-weight: 500;
+            font-size: 15px;
+            border: 2px solid rgb(255, 255, 255);
+            margin-bottom: 50px;
+        }
+
+        .appointment button:hover {
+            background-color: rgb(183, 138, 252);
+            cursor: pointer;
+        }
+
+        /* content section ends  */
+
+        .rowCount {
+            width: 443px;
+            border: 4px solid white;
+            padding: 10px;
+            margin: 5px auto;
+        }
+
+        .details {
+            width: fit-content;
+            margin: auto;
+            display: flex;
+            /* border: 2px solid white; */
+        }
+
+        .details .content {
+            border: 2px solid white;
+            /* border-bottom: none; */
+        }
+    </style>
+</head>
+
+<body>
+    <!-- header section start  -->
+    <header>
+        <div class="header">
+            <div class="menubar">
+                <div class="logo">
+                    <h1>HOSPITAL</h1>
+                </div>
+                <div class="shownavbar">
+                    <p class="lines"></p>
+                    <p class="lines"></p>
+                    <p class="lines"></p>
+                </div>
+                <nav class="navbar">
+                    <ul>
+                        <a href="index.php">
+                            <li>HOME</li>
+                        </a>
+                        <a href="logout.php">
+                            <li style="color: red;">Log out</li>
+                        </a>
+                        <li>HELPLINE:+91-9656856964</li>
+                    </ul>
+                </nav>
+            </div>
+        </div>
+        <br><br><br><br><br>
+    </header>
+    <!-- header section ends  -->
+
+
+    <main>
+        <?php
+        echo "<div class='userDetails'>
+            <div class='container'>
+                <div class='img'>
+                    <img src='upload/$photo' alt='img'>
+                </div>
+                <div class='detail'>
+                    <h2>$name</h2>
+                    <p>$degree</p>
+                    <p>$department</p>
+                </div>
+            </div>
+        </div>";
+        ?>
+
+        <div class="appointment">
+            <form action="" method="post">
+                <button name="button1">Today's Appointment</button>
+                <button name="button2">Show All Appointment</button>
+            </form>
+        </div>
+
+        <div style="margin-bottom: 50px;">
+            <?php
+            if (array_key_exists('button1', $_POST)) {
+                // echo "btn 1 is clicked";
+
+                $sql = "SELECT * FROM `appointment` Where Date = curdate() and Department = '$department'";
+                $result = mysqli_query($con, $sql);
+
+                //  finding the no. of rows returned 
+                $row = mysqli_num_rows($result);
+                echo "<div class='rowCount'>total no. of Appointments : $row</div>";
+                $serial_no = 01;
+
+                // displying data 
+                echo "<div class='details'>
+                            <div class='content' style='font-size: 20px;width: 70px;padding: 2px 10px;text-align: right;font-weight: bolder;'>S_no</div>
+                            <div class='content' style='font-size: 20px;width: 230px;padding: 2px 10px;font-weight: bolder;'>Name</div>
+                            <div class='content' style='font-size: 20px;width: 140px;padding: 2px 10px;font-weight: bolder;'>Mobile</div>
+                        </div>";
+                while ($row = mysqli_fetch_assoc($result)) {
+                    $name = $row["Name"];
+                    $phone = $row["Mobile"];
+
+                    echo "<div class='details'>
+                            <div class='content' style='width: 70px;padding: 2px 10px;text-align: right;'>$serial_no</div>
+                            <div class='content' style='width: 230px;padding: 2px 10px;'>$name</div>
+                            <div class='content' style='width: 140px;padding: 2px 10px;'>$phone</div>
+                        </div>";
+
+                    $serial_no += 1;
+                }
+            }
+            if (array_key_exists('button2', $_POST)) {
+
+                $sql = "SELECT * FROM `appointment`";
+                $result = mysqli_query($con, $sql);
+
+                //  finding the no. of rows returned 
+                $row = mysqli_num_rows($result);
+                echo "<div class='rowCount'>total no. of Appointments : $row</div>";
+                $serial_no = 01;
+
+                // displying data 
+                echo "<div class='details'>
+                            <div class='content' style='font-weight: bolder;font-size: 20px;width: 70px;padding: 2px 10px;text-align: right;'>S_no</div>
+                            <div class='content' style='font-weight: bolder;font-size: 20px;width: 230px;padding: 2px 10px;'>Name</div>
+                            <div class='content' style='font-weight: bolder;font-size: 20px;width: 140px;padding: 2px 10px;'>Mobile</div>
+                        </div>";
+                while ($row = mysqli_fetch_assoc($result)) {
+                    $name = $row["Name"];
+                    $phone = $row["Mobile"];
+
+                    echo "<div class='details'>
+                            <div class='content' style='width: 70px;padding: 2px 10px;text-align: right;'>$serial_no</div>
+                            <div class='content' style='width: 230px;padding: 2px 10px;'>$name</div>
+                            <div class='content' style='width: 140px;padding: 2px 10px;'>$phone</div>
+                        </div>";
+
+                    $serial_no += 1;
+                }
+            }
+            ?>
+        </div>
+
+    </main>
+
+
+    <script>
+        console.log("hey baby");
+        let body = document.querySelector("body");
+
+        // to show navbar when clicked on show button
+        let show = document.querySelector(".shownavbar");
+        let display = 0;
+
+        let navbar = document.querySelector(".navbar");
+
+        show.onclick = (e) => {
+            console.log(e.target.nodeName);
+            if (display === 0) {
+                show.style.animation = "transform 0.8s linear";
+                setTimeout(() => {
+                    console.log("navbar visible");
+                    navbar.style.display = "flex";
+                    show.innerHTML = 'X';
+                    show.style.padding = '8px 10px';
+                    show.style.border = '2px solid white';
+                    show.style.fontSize = '20px';
+                    navbar.style.animation = "navshow 0.4s linear";
+                    navbar.style.right = "0px";
+                    display = 1;
+                }, 400);
+            } else if (display === 1) {
+                console.log("navbar hidden");
+                navbar.style.display = "none";
+                show.innerHTML = '<p class="lines"></p><p class="lines"></p><p class="lines"></p>';
+                show.style.padding = '0px';
+                show.style.border = 'none';
+                show.style.fontSize = '20px';
+                show.style.animation = "none";
+                navbar.style.right = "-300px";
+                display = 0;
+            }
+        }
+
+
+        // to automaticlly hide navbar when clicked somewhere else on the page
+        if (navbar.style.display != "none") {
+            window.addEventListener('click', (e) => {
+                console.log(e.target.nodeName);
+                if (e.target.nodeName === "P") {
+
+                } else if (e.target.nodeName != "P") {
+                    console.log("windows is clicked");
+                    navbar.style.display = "none";
+                    show.innerHTML = '<p class="lines"></p><p class="lines"></p><p class="lines"></p>';
+                    show.style.padding = '0px';
+                    show.style.border = 'none';
+                    show.style.fontSize = '20px';
+                    navbar.style.right = "-300px";
+                    display = 0;
+                }
+            })
+        }
+    </script>
+</body>
+
+</html>

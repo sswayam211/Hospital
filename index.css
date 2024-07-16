@@ -1,0 +1,925 @@
+body {
+    margin: 0px;
+    padding: 0px;
+    background-color: rgb(204, 177, 245);
+    color: white;
+    cursor: context-menu;
+    z-index: 0;
+    height: 100%;
+    overflow-x: hidden;
+}
+
+body::-webkit-scrollbar {
+    width: 10px;
+    height: 0px;
+}
+
+body::-webkit-scrollbar-track {
+    background-color: transparent;
+}
+
+body::-webkit-scrollbar-thumb {
+    background: white;
+    border-radius: 10px;
+    cursor: pointer;
+}
+
+* {
+    margin: 0px;
+    padding: 0px;
+    list-style: none;
+    text-decoration: none;
+    box-sizing: border-box;
+    line-height: 1.5;
+    font-family: sans-serif
+}
+
+.heading {
+    text-align: center;
+    margin: 10px 0px 0px 0px;
+    padding: 10px 0px 0px 0px;
+}
+
+a {
+    color: black;
+}
+
+li {
+    padding: 10px 10px;
+}
+
+input {
+    width: 90%;
+    padding: 4px;
+    outline: none;
+}
+
+input::-webkit-scrollbar {
+    width: 0;
+}
+
+/* header section :starts  */
+.header {
+    display: block;
+    position: fixed;
+    top: 0px;
+    background-color: rgb(183, 138, 252);
+    width: 100%;
+    color: white;
+    padding: 20px 20px;
+}
+
+@media only screen and (max-width :600px) {
+    .header {
+        padding: 13px 20px;
+    }
+}
+
+.menubar {
+    display: flex;
+    flex-direction: row;
+}
+
+.menubar .logo {}
+
+.menubar .num {
+    display: block;
+    position: absolute;
+    right: 100px;
+    top: 29px;
+    line-height: 1;
+    z-index: 1;
+    cursor: pointer;
+    height: fit-content;
+    width: fit-content;
+    font-size: 22px;
+}
+
+@media only screen and (max-width :768px) {
+    .menubar .num {
+        display: none;
+    }
+}
+
+.menubar .shownavbar {
+    position: absolute;
+    right: 20px;
+    top: 22px;
+    line-height: 1;
+    z-index: 2;
+    cursor: pointer;
+    height: fit-content;
+    width: fit-content;
+    /* animation: transform 0.8s linear infinite; */
+}
+
+@media only screen and (max-width :600px) {
+    .menubar .shownavbar {
+        top: 15px;
+    }
+}
+
+@keyframes transform {
+    0% {
+        transform: rotate(0deg);
+    }
+
+    50% {
+        border-radius: 50%;
+    }
+
+    100% {
+        transform: rotate(360deg);
+        border-radius: none;
+    }
+}
+
+.lines {
+    background-color: white;
+    height: 7px;
+    width: 40px;
+    margin: 6px 0px;
+    border-radius: 3px;
+}
+
+.menubar .navbar {
+    display: none;
+    background-color: rgb(208, 195, 195);
+    position: absolute;
+    right: -300px;
+    top: 0px;
+    z-index: 1;
+    padding: 10px 0px;
+    width: 300px;
+    /* animation: navshow 4s linear; */
+}
+
+@keyframes navshow {
+    0% {
+        right: -300px;
+    }
+
+    100% {
+        right: 0px;
+    }
+}
+
+
+@media only screen and (max-height :500px) {
+    .menubar .navbar {
+        height: 400px;
+    }
+}
+
+@media only screen and (max-height :400px) {
+    .menubar .navbar {
+        height: 370px;
+    }
+}
+
+@media only screen and (max-width :840px) {
+    .menubar .navbar {
+        width: 220px;
+    }
+}
+
+.active {
+    text-decoration: underline;
+    color: rgb(113, 112, 112);
+}
+
+/* @media only screen and (max-width :550px) {
+    .menubar .navbar {
+        display: none;
+        justify-content: center;
+        align-items: center;
+        width: 100%;
+        background-color: rgba(208, 195, 195, 0.737);
+        overflow: scroll;
+        height: 100vh;
+        border-radius: 50%;
+        animation: all 0.5s linear;
+    }
+
+    .menubar .navbar::-webkit-scrollbar {
+        width: 100%;
+    }
+
+    .menubar .navbar ::before {
+        content: none;
+    }
+
+    @keyframes all {
+        0% {
+            height: 21px;
+            width: 21px;
+            top: 50vh;
+            right: 46%;
+            padding: 0px;
+        }
+
+        50% {
+            height: 50vh;
+            width: 50%;
+            top: 25vh;
+            right: 24%;
+            padding: 50px;
+        }
+
+        100% {
+            height: 100vh;
+            width: 100%;
+            top: 0vh;
+            right: 0%;
+            padding: 100px;
+        }
+    }
+} */
+
+.menubar .navbar ul {
+    display: block;
+    word-wrap: break-word;
+    overflow: scroll;
+    text-overflow: ellipsis;
+}
+
+.menubar .navbar ul::-webkit-scrollbar {
+    width: 5px;
+    height: 0px;
+}
+
+.menubar .navbar ul::-webkit-scrollbar-thumb {
+    background: white;
+    border-radius: 10px;
+    cursor: pointer;
+}
+
+/* .menubar .navbar a {
+    color: black;
+} */
+
+.menubar .navbar li {
+    padding: 10px 10px;
+}
+
+@media only screen and (max-width :550px) {
+    .menubar .navbar li {
+        padding: 5px 10px;
+    }
+}
+
+.menubar .navbar li:nth-child(10) {
+    font-size: 17px;
+    font-weight: bold;
+}
+
+.menubar .navbar li:hover {
+    color: rgb(113, 112, 112);
+    background-color: rgb(205, 188, 188);
+}
+
+/* header section :ends  */
+
+/* about section :starts  */
+.aboutUs {
+    padding: 100px 0px 0px 0px;
+    width: 90%;
+    margin: auto;
+}
+
+.aboutUs .image {
+    display: block;
+    margin: auto;
+    width: 100%;
+    height: 500px;
+    z-index: 1;
+    text-align: center;
+    background-image: url('images/doctor-1.jpg');
+    background-repeat: no-repeat;
+    background-position: center;
+    background-size: contain;
+    animation: changeimage 10s linear infinite forwards;
+}
+
+@media only screen and (max-width :840px) {
+    .aboutUs .image {
+        height: 450px;
+    }
+}
+
+@media only screen and (max-width :600px) {
+    .aboutUs .image {
+        height: 400px;
+    }
+}
+
+@keyframes changeimage {
+    0% {
+        background-image: url("images/doctor-1.jpg");
+    }
+
+    25% {
+        background-image: url("images/Doctor-2.jpeg");
+    }
+
+    50% {
+        background-image: url("images/Doctor-3.jpg");
+    }
+
+    75% {
+        background-image: url("images/surgery.jpg");
+    }
+
+    100% {
+        background-image: url("images/doctor-1.jpg");
+    }
+}
+
+.aboutUs p {
+    font-size: large;
+    margin: 10px;
+    text-align: center;
+}
+
+/* about section :ends  */
+
+/* services section :start   */
+.services {
+    padding: 10px 0px 40px 0px;
+    background-color: rgb(183, 138, 252);
+    color: white;
+}
+
+.serviceContainer {
+    padding: 10px 0px 10px 0px;
+    width: 90%;
+    margin: auto;
+}
+
+.services .heading span {
+    color: rgb(243, 231, 7);
+}
+
+.services .headingPara {
+    text-align: center;
+    font-size: large;
+}
+
+.services .details {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    flex-wrap: wrap;
+    width: 100%;
+}
+
+.services .details .boxes {
+    max-width: 45%;
+    margin: 10px;
+    padding: 20px;
+    background-color: rgb(167, 112, 250);
+    text-align: center;
+    color: white;
+    box-shadow: 10px 10px 5px rgb(167, 112, 225);
+}
+
+@media only screen and (max-width :800px) {
+    .services .details .boxes {
+        max-width: 80%;
+    }
+}
+
+.services .details .boxes p {
+    display: block;
+    word-wrap: break-word;
+    overflow: hidden;
+    text-overflow: ellipsis;
+    height: 70px;
+}
+
+.services .details .boxes h4 {
+    font-size: large;
+    margin: 10px;
+}
+
+.services .details .boxes button {
+    background: transparent;
+    padding: 5px;
+    margin: 10px;
+    color: white;
+    font-weight: 500;
+    font-size: 15px;
+    border: 3px solid rgb(183, 138, 252);
+}
+
+.services .details .boxes button:hover {
+    background-color: rgb(183, 138, 252);
+    cursor: pointer;
+}
+
+/* service section :ends  */
+
+/* find doctor section :start  */
+.findDoctor {
+    padding: 10px 0px 10px 0px;
+    width: 90%;
+    margin: auto;
+}
+
+.findDoctor .find {}
+
+.findDoctor .find form {
+    padding: 20px;
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    align-items: center;
+    width: 100%;
+}
+
+.findDoctor .find form input {
+    padding: 5px;
+    width: 60%;
+    margin-bottom: 20px;
+}
+
+@media only screen and (max-width :768px) {
+    .findDoctor .find form input {
+        width: 80%;
+    }
+}
+
+@media only screen and (max-width :500px) {
+    .findDoctor .find form input {
+        width: 100%;
+    }
+}
+
+.findDoctor .find form button {
+    background: transparent;
+    padding: 8px 25px 8px 25px;
+    margin: 10px;
+    color: white;
+    font-weight: 500;
+    font-size: 15px;
+    border: 3px solid rgb(183, 138, 252);
+}
+
+.findDoctor .find form button:hover {
+    background-color: rgb(183, 138, 252);
+    cursor: pointer;
+}
+
+/* find doctor section :end  */
+
+/* department section :start  */
+.department {
+    padding: 10px 0px 40px 0px;
+    background-color: rgb(183, 138, 252);
+    height: fit-content;
+    overflow: hidden;
+}
+
+.department .container {
+    padding: 10px 0px 10px 0px;
+    width: 90%;
+    margin: auto;
+}
+
+.department .container .showsdetail {
+    display: none;
+    position: fixed;
+    background-color: rgb(204, 177, 245);
+    top: 88px;
+    z-index: 3;
+    height: 440px;
+    width: 50%;
+    border-radius: 20px;
+    padding: 20px;
+    text-align: center;
+    right: 25%;
+    background-image: url("images/department-of-cardiology.png");
+    background-position: center;
+    background-repeat: no-repeat;
+    background-size: 300px;
+}
+
+@media only screen and (max-width :1024px) {
+    .department .container .showsdetail {
+        width: 70%;
+        right: 15%;
+    }
+}
+
+@media only screen and (max-width :600px) {
+    .department .container .showsdetail {
+        width: 90%;
+        right: 5%;
+    }
+}
+
+.department .container .showsdetail::-webkit-scrollbar {
+    width: 0;
+}
+
+.department .container .showsdetail h2 {
+    padding: 5px;
+}
+
+.department .container .showsdetail p {
+    display: block;
+    word-wrap: break-word;
+    overflow: scroll;
+    text-overflow: ellipsis;
+    height: 90%;
+}
+
+.department .container .showsdetail p::-webkit-scrollbar {
+    width: 5px;
+    height: 0px;
+}
+
+.department .container .showsdetail p::-webkit-scrollbar-thumb {
+    background: white;
+    border-radius: 10px;
+    cursor: pointer;
+}
+
+.department .container .showsdetail button {
+    display: block;
+    position: absolute;
+    right: 10px;
+    padding: 0px 6px;
+    font-weight: bolder;
+    font-size: 30px;
+    background: rgb(204, 177, 245);
+    border: 2px dashed rgb(183, 138, 252);
+    color: white;
+    cursor: pointer;
+}
+
+.department .details {
+    width: 100%;
+    display: flex;
+    justify-content: space-evenly;
+    align-items: center;
+    flex-wrap: wrap;
+}
+
+.department .details .boxes {
+    text-align: center;
+    border-radius: 10px;
+    margin: 10px;
+    padding: 10px;
+    width: 240px;
+    height: 300px;
+    overflow: hidden;
+    background-color: rgb(167, 112, 250);
+    box-shadow: 10px 10px 5px rgb(167, 112, 225);
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    align-items: center;
+}
+
+.department .details .boxes:hover {
+    height: 310px;
+    margin: 0px;
+    background-color: rgb(134, 68, 233);
+    cursor: pointer;
+}
+
+.department .details .boxes img {}
+
+.department .details .boxes p {
+    padding: 31px 0px;
+}
+
+/* department section :ends  */
+
+/* branches section start  */
+.branches {
+    padding: 0px 0px 40px 0px;
+}
+
+.branches .container {
+    padding: 10px 0px 10px 0px;
+    width: 90%;
+    margin: auto;
+}
+
+.branches .details {
+    width: 100%;
+    display: flex;
+    justify-content: space-evenly;
+    align-items: center;
+    flex-wrap: wrap;
+}
+
+.branches .boxes {
+    text-align: center;
+    border: 2px solid black;
+    border-radius: 10px;
+    margin: 10px;
+    padding: 10px;
+    width: 350px;
+    height: 200px;
+    overflow: hidden;
+    background-color: white;
+    color: black;
+}
+
+@media only screen and (max-width :822px) {
+    .branches .boxes {
+        width: 300px;
+        height: 170px;
+    }
+}
+
+@media only screen and (max-width :711px) {
+    .branches .boxes {
+        width: 250px;
+        height: 170px;
+    }
+}
+
+/* branches section ends  */
+
+/* other section starts  */
+.other {
+    background-image: url('images/doctor-medical.jpg');
+    background-position: top center;
+    background-repeat: no-repeat;
+    background-size: cover;
+}
+
+.other .bg {
+    backdrop-filter: blur(5px);
+    padding: 150px 0px;
+    background-color: rgba(128, 128, 128, 0.300);
+}
+
+@media only screen and (max-width :840px) {
+    .other .bg {
+        padding: 90px 0px;
+    }
+}
+
+@media only screen and (max-width :600px) {
+    .other .bg {
+        padding: 45px 0px;
+    }
+}
+
+@media only screen and (max-width :500px) {
+    .other .bg {
+        padding: 15px 0px;
+    }
+}
+
+.other .container {
+    padding: 10px 0px 10px 0px;
+    width: 90%;
+    margin: auto;
+}
+
+.other h2 {
+    text-align: center;
+
+}
+
+.other .details {
+    width: 70%;
+    margin: auto;
+    display: flex;
+    align-items: center;
+    flex-wrap: wrap;
+}
+
+@media only screen and (max-width :1053px) {
+    .other .details {
+        width: 100%;
+    }
+}
+
+.other .boxes {
+    margin: auto;
+    padding: 0px 40px;
+    width: 50%;
+    height: 100px;
+    display: flex;
+    align-items: center;
+}
+
+@media only screen and (max-width :600px) {
+    .other .boxes {
+        padding: 0px 10px;
+    }
+}
+
+@media only screen and (max-width :500px) {
+    .other .boxes {
+        padding: 0px 10px;
+    }
+}
+
+.other .boxes img {
+    height: 50px;
+    text-align: center;
+    padding: 0px 30px 0px 10px;
+}
+
+@media only screen and (max-width :768px) {
+    .other .boxes img {
+        padding: 0px 10px 0px 10px;
+    }
+}
+
+@media only screen and (max-width :500px) {
+    .other .boxes img {
+        height: 40px;
+    }
+}
+
+.other .boxes p {
+    line-height: 1;
+}
+
+.other .boxes:nth-child(1) {
+    border-bottom: 2px solid rgba(255, 255, 255, 0.297);
+    border-right: 2px solid rgba(255, 255, 255, 0.297);
+}
+
+.other .boxes:nth-child(2) {
+    border-bottom: 2px solid rgba(255, 255, 255, 0.297);
+}
+
+.other .boxes:nth-child(3) {
+    border-right: 2px solid rgba(255, 255, 255, 0.297);
+}
+
+.other .boxes:nth-child(4) {}
+
+/* other section ends  */
+
+/* information  section start  */
+.info {
+    padding: 10px 0px 40px 0px;
+    background-color: rgb(183, 138, 252);
+}
+
+.info .container {
+    padding: 10px 0px 10px 0px;
+    width: 90%;
+    margin: auto;
+}
+
+.info .container .details {
+    width: 100%;
+    display: flex;
+    justify-content: space-evenly;
+    align-items: center;
+    flex-wrap: wrap;
+}
+
+.info .container .boxes {
+    margin: 20px 0px;
+    width: 35%;
+    height: 260px;
+    overflow: scroll;
+}
+
+@media only screen and (max-width :705px) {
+    .info .container .boxes {
+        width: 60%;
+    }
+}
+
+@media only screen and (max-width :550px) {
+    .info .container .boxes {
+        width: 90%;
+    }
+}
+
+.info .container .boxes::-webkit-scrollbar {
+    width: 5px;
+}
+
+.info .container .boxes h4 {
+    font-size: 20px;
+}
+
+.info .container .boxes a {
+    color: white;
+}
+
+.info .container .boxes li {
+    padding: 5px 0px;
+}
+
+.info .container .feedback {
+    width: 60%;
+}
+
+@media only screen and (max-width :550px) {
+    .info .container .feedback {
+        width: 90%;
+    }
+}
+
+.info .container .feedback form {
+    display: flex;
+    flex-direction: column;
+
+}
+
+.info .container .feedback form textarea {
+    height: 130px;
+    border: none;
+    outline: none;
+}
+
+.info .container .feedback form button {
+    background: transparent;
+    padding: 8px 25px;
+    margin: 10px 0px;
+    color: white;
+    font-weight: 500;
+    font-size: 15px;
+    background-color: rgb(204, 177, 245);
+    border: 2px solid rgb(157, 92, 255);
+    width: 120px;
+}
+
+.info .container .feedback form button:hover {
+    background-color: rgb(183, 138, 252);
+    border: 2px solid rgb(204, 177, 245);
+    cursor: pointer;
+}
+
+/* information section ends  */
+
+/* scroll animation  */
+div {
+    opacity: 0;
+}
+
+.show {
+    animation: show 0.5s forwards;
+    z-index: 1;
+    opacity: 1;
+}
+
+@keyframes show {
+    0% {
+        opacity: 0;
+    }
+
+    50% {
+        opacity: 0.5;
+    }
+
+    100% {
+        opacity: 1;
+    }
+}
+
+.header {
+    z-index: 1;
+}
+
+
+/* heading border animnation  */
+.div2 {
+    border: 2px solid white;
+    position: relative;
+    bottom: 0px;
+    margin: auto;
+    width: 200px;
+    animation: border 3s infinite ease-in-out;
+}
+
+@keyframes border {
+    0% {
+        width: 0%;
+    }
+
+    50% {
+        width: 200px;
+    }
+
+    100% {
+        width: 0%;
+    }
+}
+
+.div {
+    height: 11px;
+    width: 11px;
+    background: #ffffff;
+    border-radius: 50%;
+    position: relative;
+    border-top: 3px solid white;
+    margin: auto;
+    bottom: 7px;
+}
